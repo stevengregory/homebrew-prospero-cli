@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HOMEBREW_NO_ANALYTICS: "1"
+  HOMEBREW_NO_AUTO_UPDATE: "1"
+  HOMEBREW_NO_INSTALL_CLEANUP: "1"
+  HOMEBREW_NO_ASK: "1"
+
+jobs:
+  install-test:
+    name: Install and test (${{ matrix.target }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: darwin-arm64
+            runner: macos-15
+          - target: darwin-amd64
+            runner: macos-15-intel
+          - target: linux-arm64
+            runner: ubuntu-24.04-arm
+          - target: linux-amd64
+            runner: ubuntu-24.04
+    steps:
+      - name: Set up Homebrew and check out tap
+        uses: Homebrew/actions/setup-homebrew@1f8e202ffddf94def7f42f6fa3a482e821489f9c # 2026.07.10.1
+        with:
+          stable: true
+          setup-sandbox: true
+      - name: Check formula style
+        run: brew style Formula/prospero.rb
+      - name: Install published binary
+        run: brew install --verbose stevengregory/prospero-cli/prospero
+      - name: Test installed CLI
+        run: brew test --verbose stevengregory/prospero-cli/prospero
+
+  verify:
+    name: Verify
+    if: ${{ always() }}
+    needs: install-test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every platform to pass
+        env:
+          INSTALL_TEST_RESULT: ${{ needs.install-test.result }}
+        run: test "$INSTALL_TEST_RESULT" = success
