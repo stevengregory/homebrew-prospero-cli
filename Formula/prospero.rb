@@ -1,29 +1,29 @@
 class Prospero < Formula
   desc "Book tracker for humans and agents"
   homepage "https://prospero.study"
-  version "0.2.3"
+  version "0.2.4"
 
   on_macos do
     on_arm do
-      url "https://downloads.prospero.study/cli/0.2.3/prospero-darwin-arm64.tar.gz"
-      sha256 "10d5bac613fb93371fda416f43f1cc70f0d220c51a16316ceb670adc0d531832"
+      url "https://downloads.prospero.study/cli/0.2.4/prospero-darwin-arm64.tar.gz"
+      sha256 "f667fbb60951e1c44c484959833d1e271d338674d27bdef40beb432ab0f9cca7"
     end
 
     on_intel do
-      url "https://downloads.prospero.study/cli/0.2.3/prospero-darwin-amd64.tar.gz"
-      sha256 "67f8acf96e4e3d8092a625c4bd6d882eb7147c5d298047b76094501d758ae821"
+      url "https://downloads.prospero.study/cli/0.2.4/prospero-darwin-amd64.tar.gz"
+      sha256 "de373ec266a59dac4d76556c7fec03d85e6546bcbdfeb99eda5ebf7f35915b48"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://downloads.prospero.study/cli/0.2.3/prospero-linux-arm64.tar.gz"
-      sha256 "c014fc969d5ea42c989c7609a75665da9dd075bf753fb9865d7a524671768aa7"
+      url "https://downloads.prospero.study/cli/0.2.4/prospero-linux-arm64.tar.gz"
+      sha256 "44decd73a9ff69f262e8a477782d85ab97003bb9a159dfbffc977ba81bd48d83"
     end
 
     on_intel do
-      url "https://downloads.prospero.study/cli/0.2.3/prospero-linux-amd64.tar.gz"
-      sha256 "c44a25c5b573cf6d6e7ecd1afe0a1d1c40cac5a2c83f8f227c20226b1fd3e50c"
+      url "https://downloads.prospero.study/cli/0.2.4/prospero-linux-amd64.tar.gz"
+      sha256 "03ad9291b25258a9cdeb531e0a9ca5d7b60223baf92fed80ff88c267d5af7e82"
     end
   end
 
